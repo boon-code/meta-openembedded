@@ -15,8 +15,11 @@ S = "${WORKDIR}/dbus-python-${PV}"
 inherit distutils-base autotools pkgconfig
 
 PACKAGECONFIG ?= ""
-PACKAGECONFIG[docs] = "--enable-html-docs,--disable-html-docs,python3-docutils-native"
-PACKAGECONFIG[api-docs] = "--enable-api-docs,--disable-api-docs,python3-docutils-native python3-epydoc-native"
+PACKAGECONFIG[docs] = "--enable-html-docs,--disable-html-docs,python-docutils-native"
+PACKAGECONFIG[api-docs] = "--enable-api-docs,--disable-api-docs,python-docutils-native python-epydoc-native"
+
+export BUILD_SYS
+export HOST_SYS
 
 export STAGING_LIBDIR
 export STAGING_INCDIR
@@ -24,8 +27,3 @@ export STAGING_INCDIR
 RDEPENDS_${PN} = "python-io python-logging python-stringold python-threading python-xml"
 
 FILES_${PN}-dev += "${libdir}/pkgconfig"
-
-do_install_append() {
-    # Remove files that clash with python3-dbus; their content is same
-    rm ${D}${includedir}/dbus-1.0/dbus/dbus-python.h ${D}${libdir}/pkgconfig/dbus-python.pc
-}
