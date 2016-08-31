@@ -24,3 +24,5 @@ PACKAGECONFIG ??= ""
 PACKAGECONFIG[gnome-keyring] = "--with-gnome-keyring=yes,--with-gnome-keyring=no,libgnome-keyring"
 
 S = "${WORKDIR}/git"
+
+PNBLACKLIST[smbnetfs] ?= "Depends on broken samba"
